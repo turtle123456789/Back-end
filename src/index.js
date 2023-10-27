@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const mongoose = require("mongoose");
 const routes = require('./routes');
 const cors = require('cors');
+const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser');
 
 dotenv.config();
@@ -12,7 +13,7 @@ const port = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(cookieParser());
-
+app.use(bodyParser.json())
 routes(app);
 mongoose.set('strictQuery', false);
 mongoose.connect(`${process.env.MONGO_DB}`)
@@ -22,7 +23,6 @@ mongoose.connect(`${process.env.MONGO_DB}`)
     .catch((err) => {
         console.log(err);
     });
-
 app.listen(port, () => {
     console.log('Server is running in port: ', + port);
 });

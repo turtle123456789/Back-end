@@ -45,7 +45,7 @@ const loginUser = (userLogin) => {
             if (checkUser === null) {
                 resolve({
                     status: 'ERR',
-                    message: 'The user is not defined'
+                    message: 'The user is not sdasdasds'
                 })
             }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
@@ -56,27 +56,28 @@ const loginUser = (userLogin) => {
                     message: 'The password or user is incorrect'
                 })
             }
-            const access_token = await genneralAccessToken({
-                id: checkUser.id,
-                isAdmin: checkUser.isAdmin
-            })
+            // const access_token = await genneralAccessToken({
+            //     id: checkUser.id,
+            //     isAdmin: checkUser.isAdmin
+            // })
 
-            const refresh_token = await genneralRefreshToken({
-                id: checkUser.id,
-                isAdmin: checkUser.isAdmin
-            })
+            // const refresh_token = await genneralRefreshToken({
+            //     id: checkUser.id,
+            //     isAdmin: checkUser.isAdmin
+            // })
 
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
-                access_token,
-                refresh_token
+                data: checkUser,
+                // access_token,
+                // refresh_token
             })
         } catch (e) {
             reject(e)
         }
     })
-}
+}   
 
 const updateUser = (id, data) => {
     return new Promise(async (resolve, reject) => {
