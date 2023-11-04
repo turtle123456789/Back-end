@@ -49,6 +49,7 @@ const loginUser = (userLogin) => {
                 })
             }
             const comparePassword = bcrypt.compareSync(password, checkUser.password)
+            
 
             if (!comparePassword) {
                 resolve({
@@ -56,22 +57,20 @@ const loginUser = (userLogin) => {
                     message: 'The password or user is incorrect'
                 })
             }
-            // const access_token = await genneralAccessToken({
-            //     id: checkUser.id,
-            //     isAdmin: checkUser.isAdmin
-            // })
-
-            // const refresh_token = await genneralRefreshToken({
-            //     id: checkUser.id,
-            //     isAdmin: checkUser.isAdmin
-            // })
-
+            const access_token = await genneralAccessToken({
+                id: checkUser.id,
+                isAdmin: checkUser.isAdmin
+            })
+            const refresh_token = await genneralRefreshToken({
+                id: checkUser.id,
+                isAdmin: checkUser.isAdmin
+            })
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
-                data: checkUser,
-                // access_token,
-                // refresh_token
+                // data: checkUser,
+                access_token,
+                refresh_token
             })
         } catch (e) {
             reject(e)
