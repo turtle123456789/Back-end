@@ -53,7 +53,7 @@ const loginUser = async (req, res) => {
             httpOnly: true,
             secure: false,
             sameSite: 'strict',
-            // path: '/',
+            path: '/',
         })
         return res.status(200).json({...newReponse, refresh_token})
     } catch (e) {
