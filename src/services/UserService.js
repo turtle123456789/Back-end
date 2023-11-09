@@ -16,17 +16,19 @@ const createUser = (newUser) => {
                 })
             }
             const hash = bcrypt.hashSync(password, 10)
+            
             const createdUser = await User.create({
                 name,
                 email,
                 password: hash,
                 phone
             })
+  
             if (createdUser) {
                 resolve({
                     status: 'OK',
                     message: 'SUCCESS',
-                    data: createdUser
+                    data: createdUser,
                 })
             }
         } catch (e) {
@@ -34,7 +36,6 @@ const createUser = (newUser) => {
         }
     })
 }
-
 const loginUser = (userLogin) => {
     return new Promise(async (resolve, reject) => {
         const { email, password } = userLogin
