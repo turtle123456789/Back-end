@@ -9,12 +9,10 @@ const userSchema = new mongoose.Schema(
         address: { type: String },
         avatar: { type: String },
         city: {type: String},
-        access_token:{ type: String, required: false},
-        refresh_token:{ type: String, required: false}
     },
     {
         timestamps: true
     }
 );
 const User = mongoose.model("User", userSchema);
-module.exports = User;
+module.exports = User;  

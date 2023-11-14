@@ -2,7 +2,7 @@ const Product = require("../models/ProductModel")
 
 const createProduct = (newProduct) => {
     return new Promise(async (resolve, reject) => {
-        const { name, image, type, countInStock, price, rating, description,discount } = newProduct
+        const { name, image, type, countInStock, price, rating, description,discount,percentage,gift } = newProduct
         try {
             const checkProduct = await Product.findOne({
                 name: name
@@ -13,6 +13,8 @@ const createProduct = (newProduct) => {
                     message: 'The name of product is already'
                 })
             }
+            const percentages =  (((price - discount) / price) * 100);
+
             const newProduct = await Product.create({
                 name, 
                 image, 
@@ -22,6 +24,8 @@ const createProduct = (newProduct) => {
                 rating, 
                 description,
                 discount: Number(discount),
+                percentage: percentages,
+                gift
             })
             if (newProduct) {
                 resolve({
