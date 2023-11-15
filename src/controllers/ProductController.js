@@ -2,8 +2,8 @@ const ProductService = require('../services/ProductService')
 
 const createProduct = async (req, res) => {
     try {
-        const { name, image, type, countInStock, price, rating, description, discount } = req.body
-        if (!name || !image || !type || !countInStock || !price || !rating || !discount) {
+        const { name, image, type, countInStock, price, rating, description, discount,brand,partBody,selled } = req.body
+        if (!name || !image || !type || !countInStock || !price || !rating || !discount || !brand || !partBody) {
             return res.status(200).json({
                 status: 'ERR',
                 message: 'The input is required'
@@ -113,7 +113,26 @@ const getAllType = async (req, res) => {
         })
     }
 }
-
+const getAllBrand = async (req, res) => {
+    try {
+        const response = await ProductService.getAllBrand()
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+const getAllPartBody = async (req, res) => {
+    try {
+        const response = await ProductService.getAllPartBody()
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
 module.exports = {
     createProduct,
     updateProduct,
@@ -121,5 +140,7 @@ module.exports = {
     deleteProduct,
     getAllProduct,
     deleteMany,
-    getAllType
+    getAllType,
+    getAllBrand,
+    getAllPartBody
 }

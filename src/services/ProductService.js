@@ -2,7 +2,7 @@ const Product = require("../models/ProductModel")
 
 const createProduct = (newProduct) => {
     return new Promise(async (resolve, reject) => {
-        const { name, image, type, countInStock, price, rating, description,discount,percentage,gift } = newProduct
+        const { name, image, type, countInStock, price, rating, description,discount,percentage,gift , brand, partBody,image1, image2, image3,image4} = newProduct
         try {
             const checkProduct = await Product.findOne({
                 name: name
@@ -25,7 +25,13 @@ const createProduct = (newProduct) => {
                 description,
                 discount: Number(discount),
                 percentage: percentages,
-                gift
+                gift,
+                brand,
+                partBody,
+                image1,
+                image2,
+                image3,
+                image4
             })
             if (newProduct) {
                 resolve({
@@ -129,7 +135,7 @@ const getDetailsProduct = (id) => {
 
 const getAllProduct = (limit, page, sort, filter) => {
     return new Promise(async (resolve, reject) => {
-        try {
+        try { 
             const totalProduct = await Product.count()
             let allProduct = []
             if (filter) {
@@ -180,6 +186,7 @@ const getAllType = () => {
     return new Promise(async (resolve, reject) => {
         try {
             const allType = await Product.distinct('type')
+            const typeDetails = [];
             resolve({
                 status: 'OK',
                 message: 'Success',
@@ -190,7 +197,34 @@ const getAllType = () => {
         }
     })
 }
-
+const getAllBrand = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allBrand = await Product.distinct('brand')
+            resolve({
+                status: 'OK',
+                message: 'Success',
+                data: allBrand,
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+const getAllPartBody = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const allPartBody = await Product.distinct('partBody')
+            resolve({
+                status: 'OK',
+                message: 'Success',
+                data: allPartBody,
+            })
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
 module.exports = {
     createProduct,
     updateProduct,
@@ -198,5 +232,7 @@ module.exports = {
     deleteProduct,
     getAllProduct,
     deleteManyProduct,
-    getAllType
+    getAllType,
+    getAllBrand,
+    getAllPartBody
 }
